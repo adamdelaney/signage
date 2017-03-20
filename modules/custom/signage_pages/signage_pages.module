@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Signage Pages feature.
+ */
+
+include_once 'signage_pages.features.inc';

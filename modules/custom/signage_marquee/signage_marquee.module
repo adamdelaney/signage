@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ *
+ * Hooks and general marquee code.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function signage_marquee_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function signage_marquee_libraries_info() {
+  $libraries['jquery.marquee'] = array(
+    'name' => 'Marquee jQuery Plugin',
+    'vendor url' => 'http://www.givainc.com/labs/marquee_jquery_plugin.cfm',
+    'download url' => 'http://www.givainc.com/labs/downloads/jquery.marquee.zip',
+    'version' => "1.0.01",
+    'files' => array(
+      'js' => array('lib/jquery.marquee.js'),
+    ),
+  );
+  return $libraries;
+}

@@ -1,0 +1,50 @@
+/*
+ * UPCOMING COURSE LIST
+ */
+
+div.view-upcoming-course-list {
+  div.view-empty p {
+    @include rem(font-size,26px);
+  }
+  table {
+    width: 100%;
+    background: transparent;
+    @include rem(font-size,26px);
+  }
+  th { @extend %fontbold; }
+  tr {
+    background: transparent;
+    border-bottom: 1px dashed #333333;
+    &:last-child { border-bottom: none; }
+  }
+  td {
+    padding: 6px 0;
+    &.views-field-title {
+      width: 50%;
+      @extend %fontbold;
+    }
+    &.views-field-field-repeating-event-date {
+      width: auto;
+      padding: 0 3%;
+      color: $color-grey;
+      white-space: nowrap;
+    }
+    &.views-field-field-course-subject {
+      width: auto;
+      padding: 0 3%;
+      color: $color-grey;
+      white-space: nowrap;
+    }
+    &.views-field-field-location {
+      width: auto;
+      padding-left: 5%;
+      @extend %fontbold;
+      white-space: nowrap;
+    }
+
+  }
+}
+
+.grid-4 div.view-upcoming-course-list {
+  div.view-empty p, table { @include rem(font-size,22px); }
+}

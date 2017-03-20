@@ -1,0 +1,4 @@
+@mixin rem($key,$px) {
+  #{$key}: $px;
+  #{$key}: $px/$rem-ratio;
+}

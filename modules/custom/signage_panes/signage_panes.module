@@ -1,0 +1,376 @@
+<?php
+/**
+ * @file
+ * Module file for signage panes module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function signage_panes_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' || $owner == 'page_manager' || $owner == 'panels') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function signage_panes_permission() {
+  $perms = array();
+
+  $perms['administer video embed panes'] = array(
+    'title' => t('Administer Digital Signage Video Embed'),
+    'description' => t('Configure global settings for the video embed pane.'),
+  );
+
+  return $perms;
+}
+
+/**
+ * Implements hook_preprocess_panels_pane().
+ */
+function signage_panes_preprocess_panels_pane(&$variables) {
+  if (!empty($variables['style']) && $variables['style']['name'] == 'custom-style') {
+    // Add general style class.
+    $variables['classes_array'][] = 'custom-style';
+
+    if (!empty($variables['settings']['height'])) {
+      $variables['classes_array'][] = 'style-vh';
+      // Add configurable height class.
+      $variables['classes_array'][] = 'style-vh-' . $variables['settings']['height'];
+    }
+
+    if (!empty($variables['settings']['font-size'])) {
+      $variables['classes_array'][] = 'style-font-size';
+      // Add configurable font-size class.
+      $variables['classes_array'][] = 'style-font-size-' . $variables['settings']['font-size'];
+    }
+
+    if (!empty($variables['settings']['stylize_table'])) {
+      $variables['classes_array'][] = 'stylize-table';
+    }
+  }
+}
+
+/**
+ * Implements hook_form().
+ */
+function signage_panes_video_admin_settings_form($node, &$form_state) {
+  $form = array();
+
+  $form['overview'] = array(
+    '#markup' => t('This interface allows administrators to manage global Digital Signage Video Embed settings. Recommended settings for digital signage are noted below.'),
+    '#prefix' => '<p>',
+    '#suffix' => '</p>',
+  );
+
+  // Create the vertical tabs.
+  $form['providers'] = array(
+    '#type' => 'vertical_tabs',
+  );
+
+  // Create the tabs for all providers.
+  $form['youtube'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('YouTube'),
+    '#description' => t('YouTube Embedded Player Parameters. For more information, see: <a href="https://developers.google.com/youtube/player_parameters" target="_blank">https://developers.google.com/youtube/player_parameters</a>.'),
+    '#group' => 'providers',
+  );
+
+  $form['vimeo'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Vimeo'),
+    '#description' => t('Vimeo Embedded Player Parameters. For more information, see: <a href="http://developer.vimeo.com/player/embedding" target="_blank">http://developer.vimeo.com/player/embedding</a>.'),
+    '#group' => 'providers',
+  );
+
+  // Add fields for YouTube API.
+  $form['youtube']['signage_panes_video_youtube_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Player Width'),
+    '#description' => t('The width of the video player (in pixels).'),
+    '#size' => '5',
+    '#default_value' => variable_get('signage_panes_video_youtube_width'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Player Height'),
+    '#description' => t('The height of the video player (in pixels).'),
+    '#size' => '5',
+    '#default_value' => variable_get('signage_panes_video_youtube_height'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_theme'] = array(
+    '#type' => 'select',
+    '#title' => t('Player theme'),
+    '#description' => t('Sets whether the embedded player will display player controls within a dark or light control bar.'),
+    '#options' => array(
+      'dark' => t('Dark'),
+      'light' => t('Light'),
+    ),
+    '#default_value' => variable_get('signage_panes_video_youtube_theme'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_autoplay'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Autoplay'),
+    '#description' => t('Sets whether or not the initial video will autoplay when the player loads. (<strong>Recommended</strong>)'),
+    '#default_value' => variable_get('signage_panes_video_youtube_autoplay'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_loop'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Loop'),
+    '#description' => t('Play the initial video again and again. In the case of a playlist player, the player will play the entire playlist and then start again at the first video. (<strong>Recommended</strong>)'),
+    '#default_value' => variable_get('signage_panes_video_youtube_loop'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_vq'] = array(
+    '#type' => 'select',
+    '#title' => t('Video quality'),
+    '#description' => t('Attempt to play the video in certain quality if available.'),
+    '#options' => array(
+      'small' => t('Small (240p)'),
+      'medium' => t('Medium (360p)'),
+      'large' => t('Large (480p)'),
+      'hd720' => t('HD 720p'),
+      'hd1080' => t('HD 1080p'),
+    ),
+    '#default_value' => variable_get('signage_panes_video_youtube_vq'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_rel'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show related videos'),
+    '#description' => t('Show related videos when playback of the initial video ends.'),
+    '#default_value' => variable_get('signage_panes_video_youtube_rel'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_showinfo'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show info'),
+    '#description' => t('Display information like the video title and uploader before the video starts playing.'),
+    '#default_value' => variable_get('signage_panes_video_youtube_showinfo'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_modestbranding'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide YouTube logo'),
+    '#description' => t('Hide the YouTube logo from displaying in the control bar. (<strong>Recommended</strong>)'),
+    '#default_value' => variable_get('signage_panes_video_youtube_modestbranding'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_cc_load_policy'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show Closed Captioning'),
+    '#description' => t('Show Closed Captioning by default, even if user has turned captions off.'),
+    '#default_value' => variable_get('signage_panes_video_youtube_cc_load_policy'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_iv_load_policy'] = array(
+    '#type' => 'radios',
+    '#title' => t('Display annotations'),
+    '#description' => t('Controls the display of annotations over the video content.'),
+    '#options' => array(
+      1 => t('Show video annotations.'),
+      3 => t('Hide video annotations. (<strong>Recommended</strong>)'),
+    ),
+    '#default_value' => variable_get('signage_panes_video_youtube_iv_load_policy'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_controls'] = array(
+    '#type' => 'radios',
+    '#title' => t('Display video player controls'),
+    '#description' => t('Controls the display of the video player controls.'),
+    '#options' => array(
+      0 => t('Player controls do not display in the player. For IFrame embeds, the Flash player loads immediately. (<strong>Recommended</strong>)'),
+      1 => t('Player controls display in the player. For IFrame embeds, the controls display immediately and the Flash player also loads immediately.'),
+      2 => t('Player controls display in the player. For IFrame embeds, the controls display and the Flash player loads after the user initiates the video playback.'),
+    ),
+    '#default_value' => variable_get('signage_panes_video_youtube_controls'),
+  );
+
+  $form['youtube']['signage_panes_video_youtube_autohide'] = array(
+    '#type' => 'radios',
+    '#title' => t('Autohide progress bar and the video player controls'),
+    '#description' => t('Controls the autohide behavior of the video player controls.'),
+    '#options' => array(
+      0 => t('The video progress bar and the player controls will be visible throughout the video.'),
+      1 => t('The video progress bar and the player controls will slide out of view a couple of seconds after the video starts playing. They will only reappear if the user moves her mouse over the video player or presses a key on her keyboard. (<strong>Recommended</strong>)'),
+      2 => t('The video progress bar will fade out while the player controls (play button, volume control, etc.) remain visible.'),
+    ),
+    '#default_value' => variable_get('signage_panes_video_youtube_autohide'),
+  );
+
+  // Add fields for Vimeo API.
+  $form['vimeo']['signage_panes_video_vimeo_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Player Width'),
+    '#description' => t('The width of the video player (in pixels).'),
+    '#size' => '5',
+    '#default_value' => variable_get('signage_panes_video_vimeo_width'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Player Height'),
+    '#description' => t('The height of the video player (in pixels).'),
+    '#size' => '5',
+    '#default_value' => variable_get('signage_panes_video_vimeo_height'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_autoplay'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Autoplay'),
+    '#description' => t('Play the video automatically on load. (<strong>Recommended</strong>)'),
+    '#default_value' => variable_get('signage_panes_video_vimeo_autoplay'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_loop'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Loop'),
+    '#description' => t('Play the video again when it reaches the end. (<strong>Recommended</strong>)'),
+    '#default_value' => variable_get('signage_panes_video_vimeo_loop'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_color'] = array(
+    '#type' => 'select',
+    '#title' => t('Video Controls Color'),
+    '#description' => t('Specify the color of the video controls.'),
+    '#options' => array(
+      '00adef' => t('Default'),
+      '000000' => t('Black'),
+      'ffc000' => t('Gold'),
+      'ffffff' => t('White'),
+    ),
+    '#default_value' => variable_get('signage_panes_video_vimeo_color'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_portrait'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Overlay Portrait'),
+    '#description' => t("Overlay the author's portrait before the video is played."),
+    '#default_value' => variable_get('signage_panes_video_vimeo_portrait'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_title'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Overlay Title'),
+    '#description' => t("Overlay the video's title before the video is played."),
+    '#default_value' => variable_get('signage_panes_video_vimeo_title'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_byline'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Overlay Byline'),
+    '#description' => t("Overlay the video's description before the video is played."),
+    '#default_value' => variable_get('signage_panes_video_vimeo_byline'),
+  );
+
+  $form['vimeo']['signage_panes_video_vimeo_overridable'] = array(
+    '#prefix' => '<p class="note"><strong>' . t('Note') . ': </strong><em>',
+    '#markup' => t('Color, portrait, title and byline can be restricted by Vimeo Plus videos.
+      Such videos will ignore these settings.'),
+    '#suffix' => '</em></p>',
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Validates Digital Signage Video Embed admin settings.
+ */
+function signage_panes_video_admin_settings_form_validate($form, &$form_state) {
+  // Validate width and height format.
+  if (!_signage_panes_video_validate_pixel_format($form_state['values']['signage_panes_video_youtube_width'])) {
+    form_set_error('width', t('Invalid YouTube Player width; must be in the form "123px" or "123".'));
+  }
+  if (!_signage_panes_video_validate_pixel_format($form_state['values']['signage_panes_video_youtube_height'])) {
+    form_set_error('height', t('Invalid YouTube Player height; must be in the form "123px" or "123".'));
+  }
+  if (!_signage_panes_video_validate_pixel_format($form_state['values']['signage_panes_video_vimeo_width'])) {
+    form_set_error('width', t('Invalid Vimeo Player width; must be in the form "123px" or "123".'));
+  }
+  if (!_signage_panes_video_validate_pixel_format($form_state['values']['signage_panes_video_vimeo_height'])) {
+    form_set_error('height', t('Invalid Vimeo Player height; must be in the form "123px" or "123".'));
+  }
+}
+
+/**
+ * Determine if a value is in valid pixel format- e.g. '123px' or '123'.
+ *
+ * @param string $value
+ *   The value to be tested.
+ *
+ * @return bool
+ *   TRUE is correctly formatted.
+ */
+function _signage_panes_video_validate_pixel_format($value) {
+  $pixelformat_regex = '/^\d+(px)?$/';
+  return preg_match($pixelformat_regex, $value) ? TRUE : FALSE;
+}
+
+/**
+ * Implements hook_ctools_content_subtype_alter().
+ *
+ * Alter the 'subtype' related to fields.
+ */
+function signage_panes_ctools_content_subtype_alter(&$subtype, &$plugin) {
+  if ($subtype['title'] == 'Field: Display Title (field_sign_display_title)') {
+    $subtype['category'] = 'General';
+    $subtype['title'] = 'Display Title';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Pane style edit form.
+ */
+function signage_panes_form_panels_edit_style_type_form_alter(&$form, &$form_state, $form_id) {
+
+  // Disallow no markup at all style.
+  unset($form['style']['#options']['naked']);
+
+  // Disallow rounded corners style.
+  unset($form['style']['#options']['rounded_corners']);
+
+  switch ($form_state['type']) {
+    case 'pane':
+      // Disallow block style.
+      unset($form['style']['#options']['block']);
+
+      // Set allowed types for custom style selector.
+      $allowed_types = array(
+        'astra_schedule',
+        'bongo_predictions',
+        'bongo_predictions_multiple',
+        'custom',
+        'ems_events',
+        'localist_pane',
+        'news_panes-feed_list',
+      );
+      // Unset the custom-style option for non-approved pane subtypes.
+      // When adding new allowed types, make sure to allow or disallow options
+      // on the pane styles configuration form (plugins/styles/custom-style.inc)
+      // directly as well.
+      if (!in_array($form_state['pane']->subtype, $allowed_types)) {
+        unset($form['style']['#options']['custom-style']);
+      }
+
+      break;
+
+    case 'region':
+      // Disallow block style.
+      unset($form['style']['#options']['list']);
+
+      // Disallow rounded corners style.
+      unset($form['style']['#options']['default']);
+      break;
+
+    default:
+      break;
+  }
+}

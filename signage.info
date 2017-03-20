@@ -1,0 +1,66 @@
+name = "Signage"
+description = "Drupal-based Digital Signage."
+core = "7.x"
+; ----------
+; Dependencies
+; ----------
+; Chaos tool suite
+
+dependencies[] = block
+dependencies[] = clone
+dependencies[] = contextual
+dependencies[] = crumbs
+dependencies[] = ctools
+dependencies[] = diff
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = entityreference_prepopulate
+dependencies[] = escape_admin
+dependencies[] = features
+dependencies[] = field
+dependencies[] = field_sql_storage
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = file_entity
+dependencies[] = filter
+dependencies[] = help
+dependencies[] = image
+dependencies[] = libraries
+dependencies[] = list
+dependencies[] = media
+dependencies[] = menu
+dependencies[] = node
+dependencies[] = number
+dependencies[] = og
+dependencies[] = ogfile
+dependencies[] = og_extras
+dependencies[] = og_ui
+dependencies[] = options
+dependencies[] = override_node_options
+dependencies[] = panels
+dependencies[] = panelizer
+dependencies[] = path
+dependencies[] = pathauto
+dependencies[] = rdf
+dependencies[] = redirect
+dependencies[] = signage_common
+dependencies[] = signage_groups
+dependencies[] = signage_marquee
+dependencies[] = signage_news_panes
+dependencies[] = signage_pages
+dependencies[] = signage_panes
+dependencies[] = signage_signs
+dependencies[] = signage_slides
+dependencies[] = signage_slides_views
+dependencies[] = shortcut
+dependencies[] = syslog
+dependencies[] = system
+dependencies[] = taxonomy
+dependencies[] = text
+dependencies[] = token
+dependencies[] = toolbar
+dependencies[] = transliteration
+dependencies[] = user
+dependencies[] = views
+dependencies[] = views_bulk_operations
+dependencies[] = views_xml_backend

@@ -1,0 +1,302 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the signage installation profile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function signage_install() {
+  // Add text formats.
+  $filtered_html_format = array(
+    'format' => 'filtered_html',
+    'name' => 'Filtered HTML',
+    'weight' => 0,
+    'filters' => array(
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+      // HTML filter.
+      'filter_html' => array(
+        'weight' => 1,
+        'status' => 1,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 2,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $filtered_html_format = (object) $filtered_html_format;
+  filter_format_save($filtered_html_format);
+
+  $full_html_format = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'weight' => 1,
+    'filters' => array(
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 1,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $full_html_format = (object) $full_html_format;
+  filter_format_save($full_html_format);
+
+  $default_theme = 'signage';
+  $admin_theme = 'seven';
+
+  // Disable all themes.
+  db_update('system')
+    ->fields(array('status' => 0))
+    ->condition('type', 'theme')
+    ->execute();
+  // Enable $default_theme.
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $default_theme)
+    ->execute();
+  // Enable $admin_theme.
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', $admin_theme)
+    ->execute();
+  variable_set('theme_default', $default_theme);
+  variable_set('admin_theme', $admin_theme);
+
+  // Activate admin theme when editing a node.
+  variable_set('node_admin_theme', '1');
+
+  $blocks = array(
+    array(
+      'module' => 'system',
+      'delta' => 'main',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'help',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => -10,
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'main',
+      'theme' => $admin_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'help',
+      'theme' => $admin_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'help',
+      'pages' => '',
+      'cache' => -1,
+    ),
+  );
+  // Drop system / user blocks to ensure correct building.
+  db_delete('block')->condition('module', 'system')->execute();
+  db_delete('block')->condition('module', 'user')->execute();
+  // Add in our blocks defined above.
+  $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
+  foreach ($blocks as $block) {
+    $query->values($block);
+  }
+  $query->execute();
+
+  $editor_role = new stdClass();
+  $editor_role->name = 'editor';
+  user_role_save($editor_role);
+
+  $group_manager_role = new stdClass();
+  $group_manager_role->name = 'group_manager';
+  user_role_save($group_manager_role);
+
+  $webmaster_role = new stdClass();
+  $webmaster_role->name = 'webmaster';
+  user_role_save($webmaster_role);
+
+  $admin_role = new stdClass();
+  $admin_role->name = 'administrator';
+  user_role_save($admin_role);
+
+  $editor_permissions = array(
+    'access content',
+    'access contextual links',
+    'access media browser',
+    'access toolbar',
+    'administer panels styles',
+    'change layouts in place editing',
+    'change layouts in place editing',
+    'create files',
+    'use text format filtered_html',
+    'view files',
+    'view own unpublished content',
+    'view the administration theme',
+  );
+
+  $group_manager_permissions = array(
+    'access content',
+    'access contextual links',
+    'access toolbar',
+    'create files',
+    'create signage_group content',
+    'delete any signage_group content',
+    'use text format filtered_html',
+    'view files',
+    'view own unpublished content',
+    'view the administration theme',
+  );
+
+  $webmaster_permissions = array(
+    'access content',
+    'access contextual links',
+    'access media browser',
+    'access toolbar',
+    'administer advanced pane settings',
+    'administer panelizer node signage_sign content',
+    'administer panelizer node signage_sign layout',
+    'administer panels styles',
+    'change layouts in place editing',
+    'create files',
+    'use text format filtered_html',
+    'view files',
+    'view own unpublished content',
+    'view the administration theme',
+  );
+
+  $anonymous_permissions = array(
+    'access content',
+    'view files',
+  );
+
+  drupal_static_reset('panelizer_entity_plugin_get_handler');
+
+  // Enable default permissions for roles.
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, $anonymous_permissions);
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $anonymous_permissions);
+  user_role_grant_permissions($editor_role->rid, $editor_permissions);
+  user_role_grant_permissions($group_manager_role->rid, $group_manager_permissions);
+  user_role_grant_permissions($webmaster_role->rid, $webmaster_permissions);
+  user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
+
+  // Set the administrator role.
+  variable_set('user_admin_role', $admin_role->rid);
+
+  // Assign user 1 the "administrator" role.
+  db_insert('users_roles')
+    ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
+    ->execute();
+
+  // Create user manager og role.
+  $user_manager = og_role_create('user manager', 'node', 0, 'signage_group');
+  og_role_save($user_manager);
+
+  // Set default Organic Group permissions.
+  foreach (og_roles('node', 'signage_group', 0) as $rid => $name) {
+
+    $perms = array();
+
+    switch ($name) {
+      case 'non-member':
+        $perms = array(
+          'subscribe' => 0,
+        );
+        break;
+
+      case 'member':
+        $perms = array(
+          'view image file' => 0,
+          'update any signage_sign content' => 1,
+          'create signage_slide content' => 1,
+          'update  any signage_slide content' => 1,
+          'delete any signage_slide content' => 1,
+          'unsubscribe' => 0,
+        );
+        break;
+
+      case 'administrator member';
+        $perms = array(
+          'view image file' => 0,
+          'update image file' => 1,
+          'delete image file' => 1,
+          'update group' => 0,
+          'administer group' => 0,
+          'create signage_sign content' => 1,
+          'update any signage_sign content' => 1,
+          'delete any signage_sign content' => 1,
+          'create signage_slide content' => 1,
+          'update  any signage_slide content' => 1,
+          'delete any signage_slide content' => 1,
+          'approve and deny subscription' => 0,
+          'add user' => 0,
+          'manage members' => 0,
+          'manage roles' => 0,
+          'manage permissions' => 0,
+          'administer panelizer node signage_sign content' => 1,
+          'administer panelizer node signage_sign layout' => 1,
+        );
+        break;
+
+      case 'user manager';
+        $perms = array(
+          'add user' => 1,
+          'manage members' => 1,
+        );
+        break;
+
+      default:
+        break;
+    }
+
+    if (!empty($perms)) {
+      og_role_change_permissions($rid, $perms);
+    }
+  }
+
+  // Update the menu router information.
+  menu_rebuild();
+}

@@ -1,0 +1,7 @@
+name = Custom Signage Content Panes
+description = Generic, reusable Ctools content panes for signage.
+core = 7.x
+package = Signage
+dependencies[] = ctools
+dependencies[] = flexslider
+stylesheets[all][] = css/video.css

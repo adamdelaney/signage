@@ -1,0 +1,64 @@
+<?php
+/**
+ * @file
+ * Code for the Signage News Panes feature.
+ */
+
+include_once 'signage_news_panes.features.inc';
+
+/**
+ * Implements hook_libraries_info().
+ */
+function signage_news_panes_libraries_info() {
+  $libraries['autoscroller'] = array(
+    'name' => 'Auto Scroller',
+    'vendor url' => 'http://signage.uiowa.edu',
+    'version' => "1.0",
+    'files' => array(
+      'js' => array('autoscroller.js'),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Alter the views pane content type form.
+ */
+function signage_news_panes_form_views_content_views_panes_content_type_edit_form_alter(&$form, &$form_state, $form_id) {
+  $view = $form_state['view'];
+  if ($view->name == 'news_panes') {
+    $conf = $form_state['conf'];
+    $form['feed_source'] = array(
+      '#type' => 'textfield',
+      '#description' => t('Provide a valid RSS feed. Items will be sorted by
+        date, in decending order.'),
+      '#title' => t('Feed URL'),
+      '#default_value' => $conf['feed_source'],
+      '#size' => 128,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
+
+    $form['items_per_page']['#description'] = t('Select the number of items to display, or 0 to display all results. If the number of items extends beyond the height of the pane, the items will scroll up and down automatically.');
+    // Add extra source fields to the marquee.
+    array_unshift($form['#submit'], 'signage_news_panes_views_panes_content_type_edit_form_submit');
+  }
+}
+
+/**
+ * Store form values in $conf.
+ */
+function signage_news_panes_views_panes_content_type_edit_form_submit(&$form, &$form_state) {
+  // Copy everything from our defaults.
+  // From views_content_views_panes_content_type_edit_form_submit().
+  // Add custom 'feed_url' to $keys.
+  $keys = array('feed_source');
+
+  foreach ($keys as $key) {
+    if (isset($form_state['values'][$key])) {
+      $form_state['conf'][$key] = $form_state['values'][$key];
+    }
+  }
+}

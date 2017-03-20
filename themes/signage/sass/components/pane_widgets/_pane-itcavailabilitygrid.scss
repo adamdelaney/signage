@@ -1,0 +1,9 @@
+.pane-itcavailabilitygrid {
+  table {
+    @extend %table-plain;
+
+    th {
+      white-space: nowrap;
+    }
+  }
+}

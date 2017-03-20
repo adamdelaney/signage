@@ -1,0 +1,36 @@
+$sans: Arial, "Helvetica Neue", Helvetica, sans-serif !default;
+$serif: Georgia, Times, "Times New Roman", serif !default;
+
+$default-border-radius: 3px;
+
+%fontreg { font-family: "ProximaNovaRegular", $sans; }
+%fontsemibold { font-family: "ProximaNovaSemibold", $sans; }
+%fontbold { font-family: "ProximaNovaRgBold", $sans; }
+%opensansreg { font-family: "OpenSans", $sans; }
+%opensansbold { font-family: "OpenSansBold", $sans; }
+%icon { font-family: "FontAwesome", $sans; }
+
+h1,h2,h3,h4,h5,h6 {
+  color: $color-yellow;
+  @extend %fontbold;
+}
+
+h1 { @include rem(font-size,36px); }
+h2 { @include rem(font-size,30px); }
+h3 { @include rem(font-size,26px); }
+h4 { @include rem(font-size,22px); }
+h5 { @include rem(font-size,18px); }
+h6 { @include rem(font-size,14px); @extend %fontreg; margin-bottom: 0; }
+
+a {
+  color: $color-yellow;
+  text-decoration: none;
+}
+
+
+// Typographic styles.
+%list-title {
+  @extend %fontsemibold;
+  @include rem(font-size, 25px);
+  line-height: 1.3;
+}

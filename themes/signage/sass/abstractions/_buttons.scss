@@ -1,0 +1,100 @@
+// CLAS button style.
+%btn {
+  position: relative;
+  display: inline-block;
+  height: 33px;
+  width: auto;
+  margin: 0 6px 10px 0;
+  padding: 0 0.8em 2px;
+  border: none;
+  @include border-radius($border-radius);
+  background-color: #666666;
+  @include filter-gradient(#666666, #383838, vertical);
+  @include background-image(linear-gradient(top,  #666666 0%,#383838 100%));
+  background-repeat: no-repeat;
+  color: $color-buttongrey;
+  @extend %opensansbold;
+  @include rem(font-size,12px);
+  line-height: 33px;
+  text-transform: uppercase;
+
+  &:hover,
+  &:active {
+    background-color: #999999;
+    @include filter-gradient(#999999, #3d3d3d, vertical);
+    @include background-image(linear-gradient(top,  #999999 0%,#3d3d3d 100%));
+  }
+}
+
+// Bootstrap Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  a {
+    color: $color;
+  }
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 25%);
+  }
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+          border-color: darken($border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+
+// Button sizes
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+}

@@ -1,0 +1,69 @@
+// IPE overrides.
+.panels-ipe-linkbar.inline {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    @include inline-block;
+  }
+}
+div.panels-ipe-placeholder {
+  background: #333;
+  border-color: #444;
+
+  h3 {
+    color: #ccc;
+    width: auto;
+  }
+
+  .panels-ipe-newblock,
+  .panels-ipe-newblock a {
+    @include box-shadow(0px 0px 0px transparent);
+  }
+}
+.panels-ipe-dragbar-admin-title {
+  @extend %sr-only;
+}
+
+// Hide regions based if the preview is on.
+.preview-on {
+  padding-top: 0 !important;
+
+  .l-guide,
+  .l-footer,
+  .region-page-top,
+  .region-page-bottom {
+    display: none;
+  }
+
+  &.panels-ipe {
+    margin-bottom: 0 !important;
+  }
+}
+
+// Preview button.
+#preview-button {
+  display: none;
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  z-index: 99;
+
+  .js & {
+    display: block;
+  }
+
+  .preview-on & {
+    top: 10px !important;
+  }
+
+  .toolbar & {
+    top: $toolbar-height + 10px;
+  }
+
+  .toolbar-drawer & {
+    top: $toolbar-height + $toolbar-drawer-height + 10px;
+  }
+}
+

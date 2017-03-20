@@ -1,0 +1,8 @@
+.pane-bongo-predictions-multiple {
+  @include clearfix;
+
+  .stop-title {
+    margin: 0;
+    @include rem(font-size, 22px);
+  }
+}

@@ -1,0 +1,46 @@
+.l-header {
+  background: #000;
+  border-bottom: 2px solid $color-yellow;
+  padding: 1em 0;
+
+  .container {
+    position: relative;
+  }
+
+  .uiowa-logo {
+    display: block;
+    max-width: 270px;
+  }
+
+  .site-name {
+    margin: 0;
+    @include rem(font-size,50px);
+    line-height: normal;
+
+    a {
+      display: block;
+      color: #fff;
+    }
+  }
+
+  .login {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    @extend %fontsemibold;
+    @include rem(font-size,16px);
+    color: $color-main;
+    display: block;
+
+    &:before {
+      content: "\f023";
+      @extend %icon;
+      display: inline-block;
+      padding-right: 8px;
+
+      .no-svg & {
+        content: "";
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+<?php
+/**
+ * @file
+ * Code for the Signage Groups feature.
+ */
+
+include_once 'signage_groups.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function signage_groups_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+/**
+ * Implements hook_node_validate().
+ */
+function signage_groups_node_validate($node, $form, &$form_state) {
+
+  if ($form['#form_id'] == 'signage_group_node_form') {
+
+    // If the og_group_ref field has a value greater than one, set a form error.
+    if (!empty($form_state['values']['og_group_ref']) && count($form_state['values']['og_group_ref'][LANGUAGE_NONE]) > 1) {
+      form_set_error('og_group_ref', t('A group can reference at most one group.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_panels_ipe_access().
+ */
+function signage_groups_panels_ipe_access($display) {
+
+  $group = og_context();
+
+  $permission = 'use panels in place editing';
+
+  return og_user_access($group['group_type'], $group['gid'], $permission);
+}
+
+/**
+ * Implements hook_og_permission().
+ */
+function signage_groups_og_permission() {
+  return array(
+    'use panels in place editing' => array(
+      'title' => t('Use the Panels In-Place Editor'),
+      'description' => t("Allows a user to utilize Panels' In-Place Editor in this group."),
+      // Determine to which role to limit the permission. For example the
+      // "subscribe" can't be assigned only to a non-member, as a member doesn't
+      // need it.
+      'roles' => array(OG_ADMINISTRATOR_ROLE, OG_AUTHENTICATED_ROLE),
+      // Determine to which roles the permissions will be enabled by default.
+      'default role' => array(OG_ADMINISTRATOR_ROLE),
+    ),
+  );
+}

@@ -1,0 +1,55 @@
+<?php
+/**
+ * @file
+ *
+ * Install tasks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function signage_common_install() {
+
+  // Disable the default Media browser.
+  $status = variable_get('views_defaults', array());
+  $status['media_default'] = TRUE;
+  variable_set('views_defaults', $status);
+
+  // Enable the node view, for panelizer full page override.
+  variable_set('page_manager_node_view_disabled', FALSE);
+
+  // Ensure that the default jpeg quality is set to 100.
+  variable_set('image_jpeg_quality', 100);
+}
+
+/**
+ * Ensure that the node clone module gets enabled.
+ */
+function signage_common_update_7100() {
+
+  module_enable(array('clone'));
+}
+
+/**
+ * Ensure that the ogfile module gets enabled.
+ */
+function signage_common_update_7101() {
+
+  module_enable(array('ogfile'));
+}
+
+/**
+ * Ensure that the promotional image feature gets enabled.
+ */
+function signage_common_update_7102() {
+
+  module_enable(array('signage_promotions'));
+}
+
+/**
+ * Ensure that the default jpeg quality is set to 100.
+ */
+function signage_common_update_7103() {
+
+  variable_set('image_jpeg_quality', 100);
+}

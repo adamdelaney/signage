@@ -1,0 +1,28 @@
+.pane-ems-events {
+  table {
+    font-weight: bold;
+  }
+
+  th{
+    border: none;
+  }
+
+  tr.odd, tr.even {
+    border-bottom-width: 2px;
+  }
+  .time {
+    width: 20%;
+  }
+
+  .room {
+    width: 30%;
+  }
+
+  &.stylize-table {
+    tr.odd, tr.even {
+      color: #000;
+      background-color: #ffc000;
+      border-bottom-color: #020202;
+    }
+  }
+}

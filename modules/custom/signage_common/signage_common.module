@@ -1,0 +1,139 @@
+<?php
+/**
+ * @file
+ * Code for the Signage Common feature.
+ */
+
+include_once 'signage_common.features.inc';
+
+/**
+ * Implements hook_og_context_negotiation_info().
+ */
+function signage_common_og_context_negotiation_info() {
+  return array(
+    'user_logged_in' => array(
+      'name' => t('User - Logged in'),
+      'description' => t("Determine context by finding the current user's OG (if any)."),
+      'callback' => 'signage_common_og_context_handler',
+    ),
+  );
+}
+
+/**
+ * Adds group ids of current user to context.
+ */
+function signage_common_og_context_handler() {
+  global $user;
+  $account = clone $user;
+  $contexts = _group_context_handler_entity('user', $account);
+  return $contexts;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function signage_common_form_alter(&$form, &$form_state, $form_id) {
+  // File entity add/upload form.
+  if ($form_id == 'file_entity_add_upload') {
+    if (!empty($form_state['step']) && $form_state['step'] == 4 && $form_state['storage']['type'] == 'image') {
+      // Remove title text.
+      $form['field_file_image_title_text']['#access'] = FALSE;
+
+      $file = file_load($form_state['storage']['upload']);
+      $file->type = $form_state['storage']['type'];
+
+      $form['image_preview'] = array(
+        '#markup' => drupal_render(file_view_file($file, $view_mode = 'preview_with_ratios')),
+        '#weight' => '-5',
+      );
+    }
+  }
+
+  // File entity edit form modifications.
+  if ($form_id == 'file_entity_edit' && $form_state['file']->type == 'image') {
+    // Do not show the title text field on the image add/edit form.
+    $form['field_file_image_title_text']['#access'] = FALSE;
+
+    $form['image_preview'] = array(
+      '#markup' => drupal_render(file_view_file($form_state['file'], $view_mode = 'preview_with_ratios')),
+      '#weight' => '-5',
+    );
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function signage_common_entity_info_alter(&$entity_info) {
+  $entity_info['file']['view modes'] += array(
+    'preview_with_ratios' => array(
+      'label' => t('Preview with Ratio'),
+      'custom settings' => TRUE,
+    ),
+  );
+
+  return $entity_info;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function signage_common_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter' && isset($implementations['signage_common'])) {
+    $group = $implementations['signage_common'];
+    unset($implementations['signage_common']);
+    $implementations['signage_common'] = $group;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function signage_common_form_panels_ipe_edit_control_form_alter(&$form, &$form_state) {
+  // Get rid of the "Save as panelizer default" button.
+  if (isset($form['buttons']['save_default'])) {
+    if (!user_access('administer panelizer node signage_sign defaults')) {
+      unset($form['buttons']['save_default']);
+    }
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function signage_common_menu_alter(&$items) {
+  // Modify the node clone local action into a local task.
+  $items['node/%node/clone/%clone_token']['type'] = MENU_LOCAL_TASK;
+}
+
+/**
+ * Implements hook_og_permission().
+ */
+function signage_common_og_permission() {
+  return array(
+    'clone node' => array(
+      'title' => t('Clone any node'),
+      'description' => t("Allow user to clone any node in the group."),
+      // Determine to which role to limit the permission. For example the
+      // "subscribe" can't be assigned only to a non-member, as a member doesn't
+      // need it.
+      'roles' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+      // Determine to which roles the permissions will be enabled by default.
+      'default role' => array(OG_ADMINISTRATOR_ROLE),
+    ),
+  );
+}
+
+/**
+ * Implements hook_clone_access_alter().
+ */
+function signage_common_clone_access_alter(&$access, $node) {
+  global $user;
+
+  // If the user has the clone node permission in the group and the node is of
+  // type signage_sign, give access to cloning.
+  if ($node->type == 'signage_sign' && og_user_access_entity('clone node', 'node', $node, $user)) {
+    $access = TRUE;
+  }
+}
+

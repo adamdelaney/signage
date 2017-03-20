@@ -1,0 +1,53 @@
+.panel-display {
+
+  // Wrappers.
+  .top-wrapper {
+    background: #000;
+    border-bottom: 2px solid $color-yellow;
+    padding: 1em 0;
+
+    @include breakpoint($screen-md) {
+      @include display-flex;
+      @include align-items(center);
+
+      // Align the panels to the top when editing in IPE.
+      .panels-ipe-editing & {
+        @include align-items(flex-start);
+      }
+    }
+
+    .panel-separator {
+      margin: 5px 0;
+    }
+  }
+
+  .center-wrapper {
+    padding: 1em 0;
+    .panel-separator {
+      margin: 1em 0;
+    }
+  }
+
+  .bottom-wrapper {
+    padding: 1em 0;
+    width: 100%;
+    margin-bottom: 0;
+    background: #000;
+    background: #111111;
+    border-top: 1px solid #222222;
+
+    // Only fix the region if we are logged out or the preview is on.
+    .not-logged-in &,
+    .preview-on & {
+      position: fixed;
+      z-index: 99;
+      bottom: 0;
+    }
+  }
+
+  // Regions.
+  .panel-col-top-right {
+    text-align: right;
+  }
+}
+

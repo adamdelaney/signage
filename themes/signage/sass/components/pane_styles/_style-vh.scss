@@ -1,0 +1,10 @@
+.style-vh {
+  overflow: hidden;
+}
+
+// vh classes.
+@for $i from 1 through 10 {
+  .style-vh-#{$i*10} {
+    max-height: #{$i*10}vh;
+  }
+}

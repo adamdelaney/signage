@@ -1,0 +1,46 @@
+/*
+ * CONTENT EDIT BLOCK STYLING
+ */
+
+.panel-col-left, .panel-col-right { margin-bottom: 2%; }
+
+.pane-views-panes {
+  &.pane-group-slideshows-panel-pane-group-slideshow-edit,
+  &.pane-news-events-panel-pane-news-events-edit {
+    padding-bottom: 2%;
+  }
+  .pane-title {
+    border-bottom: 1px dashed #333333;
+    padding: 0 0 0.5%;
+  }
+}
+
+.content-edit {
+  @include rem(margin-top,10px);
+  color: $color-main;
+  ul {
+    @include rem(margin-bottom,20px);
+  }
+}
+
+.content-edit li,
+.view-content > .views-row {
+  line-height: 1.8;
+}
+
+.content-edit > ul > li.views-row a,
+.view-content > .views-row .edit-link a,
+.view-content > .views-row .delete-link a {
+  padding: 2px 10px;
+  @include border-radius();
+  background-color: #333333;
+  color: $color-buttongrey;
+  @extend %opensansbold;
+  text-decoration: none;
+  &:hover { background-color: $color-darkgrey; }
+}
+
+.content-edit > ul > li.views-row .delete-link a,
+.view-content > .views-row .delete-link a {
+  color: $color-red;
+}

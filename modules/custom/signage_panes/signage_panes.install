@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * Install file for the signage panes module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function signage_panes_install() {
+  // Set default variables.
+  variable_set('signage_panes_video_youtube_width', '640px');
+  variable_set('signage_panes_video_youtube_height', '360px');
+  variable_set('signage_panes_video_youtube_theme', 'dark');
+  variable_set('signage_panes_video_youtube_autoplay', 1);
+  variable_set('signage_panes_video_youtube_loop', 1);
+  variable_set('signage_panes_video_youtube_vq', 'hd1080');
+  variable_set('signage_panes_video_youtube_rel', 0);
+  variable_set('signage_panes_video_youtube_showinfo', 0);
+  variable_set('signage_panes_video_youtube_modestbranding', 1);
+  variable_set('signage_panes_video_youtube_cc_load_policy', 1);
+  variable_set('signage_panes_video_youtube_iv_load_policy', 3);
+  variable_set('signage_panes_video_youtube_controls', 0);
+  variable_set('signage_panes_video_youtube_autohide', 1);
+  variable_set('signage_panes_video_vimeo_width', '640px');
+  variable_set('signage_panes_video_vimeo_height', '360px');
+  variable_set('signage_panes_video_vimeo_autoplay', 1);
+  variable_set('signage_panes_video_vimeo_loop', 1);
+  variable_set('signage_panes_video_vimeo_color', '00adef');
+  variable_set('signage_panes_video_vimeo_portrait', 0);
+  variable_set('signage_panes_video_vimeo_title', 0);
+  variable_set('signage_panes_video_vimeo_byline', 0);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function signage_panes_uninstall() {
+  // Delete variables.
+  variable_del('signage_panes_video_youtube_width');
+  variable_del('signage_panes_video_youtube_height');
+  variable_del('signage_panes_video_youtube_theme');
+  variable_del('signage_panes_video_youtube_autoplay');
+  variable_del('signage_panes_video_youtube_loop');
+  variable_del('signage_panes_video_youtube_vq');
+  variable_del('signage_panes_video_youtube_rel');
+  variable_del('signage_panes_video_youtube_showinfo');
+  variable_del('signage_panes_video_youtube_modestbranding');
+  variable_del('signage_panes_video_youtube_cc_load_policy');
+  variable_del('signage_panes_video_youtube_iv_load_policy');
+  variable_del('signage_panes_video_youtube_controls');
+  variable_del('signage_panes_video_youtube_autohide');
+  variable_del('signage_panes_video_vimeo_width');
+  variable_del('signage_panes_video_vimeo_height');
+  variable_del('signage_panes_video_vimeo_autoplay');
+  variable_del('signage_panes_video_vimeo_loop');
+  variable_del('signage_panes_video_vimeo_color');
+  variable_del('signage_panes_video_vimeo_portrait');
+  variable_del('signage_panes_video_vimeo_title');
+  variable_del('signage_panes_video_vimeo_byline');
+}
+
+/**
+ * Ensure that the default youtube video quality is set to HD.
+ */
+function signage_panes_update_7000() {
+  variable_set('signage_panes_video_youtube_vq', 'hd1080');
+}
+
+/**
+ * Deprecated update hook.
+ */
+function signage_panes_update_7001() {
+}

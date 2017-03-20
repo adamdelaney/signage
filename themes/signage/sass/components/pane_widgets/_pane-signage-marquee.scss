@@ -1,0 +1,31 @@
+.pane-signage-marquee {
+  @include rem(font-size, 30px);
+
+
+
+  .marquee-title-wrapper {
+    float: left;
+    margin-right: 0.5em;
+    color: $color-yellow;
+    position: relative;
+    top: 7px;
+  }
+
+  .marquee-title,
+  .item-title {
+    @extend %fontbold;
+  }
+
+  .marquee-title {
+    &:after {
+      content: $icon-double-arrow;
+      margin-left: 10px;
+      position: relative;
+      top: -3px;
+    }
+  }
+
+  .item-date {
+    color: $color-grey;
+  }
+}

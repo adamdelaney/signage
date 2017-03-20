@@ -1,0 +1,10 @@
+.pane-title {
+  margin: 0;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.2em;
+  border-bottom: $dotted-line;
+
+  &:after {
+    content: $icon-double-arrow;
+  }
+}

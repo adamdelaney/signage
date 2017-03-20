@@ -1,0 +1,13 @@
+name = Signage News Panes
+description = Basic news pane list
+core = 7.x
+package = Signage
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = views_content
+dependencies[] = views_xml_backend
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = news_panes
+project path = profiles/signage/modules/custom

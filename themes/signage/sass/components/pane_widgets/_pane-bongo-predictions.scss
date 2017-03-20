@@ -1,0 +1,48 @@
+.pane-bongo-predictions {
+  .bongo-predictions {
+    width: 100%;
+
+    th,
+    td {
+      @include rem(padding,10px);
+      border: none;
+    }
+
+    th {
+      @extend %fontbold;
+      color: $color-main;
+    }
+
+    tr {
+      color: $color-main;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      @extend %fontreg;
+    }
+
+    .cambus {
+      background-color: $cambus-gold !important;
+      color: $color-black;
+      border: 1px solid darken($cambus-gold, 5);
+    }
+
+    .coralville {
+      background-color: $cambus-blue !important;
+      color: $color-white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      border: 1px solid darken($cambus-blue, 5);
+    }
+
+    .iowa-city {
+      background-color: $cambus-red !important;
+      color: $color-white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      border: 1px solid darken($cambus-red, 5);
+    }
+  }
+}

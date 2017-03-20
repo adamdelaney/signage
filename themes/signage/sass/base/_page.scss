@@ -1,0 +1,13 @@
+html {
+  font-size: 62.5%;
+  @extend %fontreg;
+}
+
+body {
+  @include background(linear-gradient(top, #292929 0%, #020202 100%) fixed);
+  background-repeat: no-repeat;
+  @extend %fontreg;
+  @include rem(font-size, $body-font-size);
+  line-height: 1.4;
+  color: $color-main;
+}

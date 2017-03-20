@@ -1,0 +1,16 @@
+.l-guide {
+  padding: 1em 0 0;
+  border-bottom: 1px solid $color-darkgrey;
+
+  .breadcrumb {
+    @include rem(font-size, 14px);
+  }
+
+  .page-title {
+    margin: 0;
+  }
+
+  .tabs {
+    margin-top: 1em;
+  }
+}

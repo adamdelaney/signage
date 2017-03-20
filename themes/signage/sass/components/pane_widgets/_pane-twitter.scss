@@ -1,0 +1,8 @@
+.pane-twitter {
+  // Force the widget to be 100%.
+  // Also see twitter-timeline-width.js.
+  iframe,
+  .timeline {
+    max-width: 100% !important;
+  }
+}

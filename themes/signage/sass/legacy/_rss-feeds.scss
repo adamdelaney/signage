@@ -1,0 +1,71 @@
+/*
+ * Listing feed
+ */
+.view-display-id-feed_list {
+  height:300px;
+  overflow: hidden;
+  overflow-y:hidden;
+
+  font-size: 1.5em;
+}
+
+/*
+ * NEWS MARQUEE
+ */
+
+.pane-signage-marquee {
+  min-height: 50px;
+  .marquee-list {
+    position: relative;
+  }
+
+  .marquee-title-wrapper {
+    float: left;
+    padding:.5em .1em;
+    margin-right: 5px;
+  }
+
+  .marquee-title {
+    position: relative;
+    top: -14px;
+    color: $color-yellow;
+    font-size: 2em;
+  }
+}
+
+.panel-col-bottom {
+  position: fixed;
+  bottom: 0;
+  height: auto;
+  width: 99.9%;
+  background: #111111;
+  border-top: 1px solid #222222;
+  clear: both;
+  z-index: 9999;
+}
+
+.logged-in .panel-col-bottom {
+  position: static;
+  padding-top: 10px;
+}
+
+ul.marquee-shown {
+/* required styles */
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+
+  li {
+    position: absolute;
+    top: -999em;
+    left: 0;
+    display: block;
+    white-space: nowrap; /* keep all text on a single line */
+    font-size: 2em;
+  }
+}

@@ -1,0 +1,33 @@
+<?php
+/**
+ * @file
+ * Code for the Signage Slides Views feature.
+ */
+
+include_once 'signage_slides_views.features.inc';
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function signage_slides_theme_registry_alter(&$theme_registry) {
+  $theme_registry['flexslider_list_item']['function'] = 'signage_slides_flexslider_list_item';
+}
+
+/**
+ * Cleaner flexslider_list_item markup.
+ */
+function signage_slides_flexslider_list_item(&$vars) {
+  return $vars['item'];
+}
+
+/**
+ * Implements hook_views_api_alter().
+ *
+ * Views api is specified by features but we want to add the template path
+ * directory to it.
+ */
+function signage_slides_views_views_api_alter(&$apis) {
+  if (!empty($apis['signage_slides_views']) && $apis['signage_slides_views']['api'] == '3.0') {
+    $apis['signage_slides_views']['template path'] = drupal_get_path('module', 'signage_slides_views');
+  }
+}

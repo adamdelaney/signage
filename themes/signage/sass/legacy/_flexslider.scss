@@ -1,0 +1,13 @@
+/*
+ * FLEXSLIDER
+ */
+
+.flexslider {
+  @include rem(margin,0px);
+  @include rem(margin-bottom,30px);
+  background: none;
+  border: none !important;
+  @include border-radius(0 !important);
+  box-shadow: none !important;
+  .view-content { border: 1px solid #333333 !important; }
+}

@@ -1,0 +1,17 @@
+name = Signage Slides Views
+description = Views related to slides
+core = 7.x
+package = Signage
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = date_views
+dependencies[] = flexslider
+dependencies[] = flexslider_views
+dependencies[] = signage_slides
+dependencies[] = views
+dependencies[] = views_content
+scripts[] = js/duration.js
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = slides_slideshows
+project path = profiles/signage/modules/custom

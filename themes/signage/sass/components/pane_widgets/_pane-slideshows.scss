@@ -1,0 +1,9 @@
+// There are currently 3 slideshow displays:
+.pane-slides-slideshows-primary-slideshow,
+.pane-slides-slideshows-secondary-slideshow,
+.pane-slides-slideshows-tertiary-slideshow {}
+
+// Override flexliders default margin, @see ./sass/base/_flexslider.scss.
+.flexslider {
+  margin-bottom: 0;
+}

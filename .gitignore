@@ -1,0 +1,15 @@
+# Don’t track sass cache.
+themes/signage/.sass-cache
+
+# Ignore sass maps
+*.css.map
+
+# Don't track contrib modules directory.
+modules/contrib/
+modules/custom/localist_pane/
+
+# Don't track the contrib libraries we use.
+libraries/*
+
+# Mac Droppings
+.DS_Store

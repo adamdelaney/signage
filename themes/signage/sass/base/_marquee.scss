@@ -1,0 +1,19 @@
+ul.marquee-shown {
+/* required styles */
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 1.9;
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+
+  li {
+    position: absolute;
+    top: -999em;
+    left: 0;
+    display: block;
+    white-space: nowrap; /* keep all text on a single line */
+  }
+}

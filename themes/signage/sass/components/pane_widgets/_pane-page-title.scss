@@ -1,0 +1,10 @@
+.pane-page-title {
+  h1 {
+    @extend %fontsemibold;
+    margin: 0;
+    @include rem(font-size, 55px);
+    line-height: 1;
+    color: #fff;
+    @include text-shadow(0 0 1px #fff);
+  }
+}

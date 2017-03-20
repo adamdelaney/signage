@@ -1,0 +1,127 @@
+<?php
+/**
+ * @file
+ * Code for the Signage Signs feature.
+ */
+
+include_once 'signage_signs.features.inc';
+
+/**
+ * Implements hook_node_validate().
+ */
+function signage_signs_node_validate($node, $form, &$form_state) {
+
+  if ($form['#form_id'] == 'signage_sign_node_form') {
+
+    // If the og_group_ref field has a value greater than one, set a form error.
+    if (!empty($form_state['values']['og_group_ref']) && count($form_state['values']['og_group_ref'][LANGUAGE_NONE]) > 1) {
+      form_set_error('og_group_ref', t('A sign can reference at most one group.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function signage_signs_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($form_state['build_info']['form_id'] == 'signage_sign_node_form') {
+
+    // Hide access to the published/unpublished field.
+    $entity_form['status']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_table_fields_alter().
+ */
+function signage_signs_inline_entity_form_table_fields_alter(&$fields, $context) {
+
+  if ($context['parent_entity_type'] == 'node' && in_array('signage_slide', $context['allowed_bundles'])) {
+
+    unset($fields['status']);
+
+    // Add Slide content field to Inline Entity Form table.
+    $fields['field_slide_content'] = array(
+      'type' => 'field',
+      'label' => t('Image'),
+      'weight' => 0,
+      'formatter' => 'file_rendered',
+      'settings' => array('file_view_mode' => 'preview_with_ratios'),
+    );
+
+    // Add Slide schedule field to Inline Entity Form table.
+    $fields['field_slide_schedule'] = array(
+      'type' => 'callback',
+      'label' => t('Schedule'),
+      'weight' => 3,
+      'render_callback' => 'signage_signs_slide_schedule_callback',
+    );
+
+    // Add Slide duration field to Inline Entity Form table.
+    $fields['field_slide_duration'] = array(
+      'type' => 'field',
+      'label' => t('Duration'),
+      'weight' => 4,
+    );
+  }
+}
+
+/**
+ * Provides a renderable array for the schedule column in the IEF table.
+ */
+function signage_signs_slide_schedule_callback($entity_type, $entity) {
+
+  $output = array();
+
+  // Add slide day of the week to column.
+  if (!empty($entity->field_slide_day)) {
+    $output['day'] = field_view_field($entity_type, $entity, 'field_slide_day');
+  }
+
+  // Add slide end date to column.
+  if (!empty($entity->field_slide_end_date)) {
+    $output['end'] = field_view_field($entity_type, $entity, 'field_slide_end_date');
+  }
+
+  // Add slide start date to column.
+  if (!empty($entity->field_slide_start_date)) {
+    $output['start'] = field_view_field($entity_type, $entity, 'field_slide_start_date');
+  }
+
+  // Add a default value if neither start or end are filled out.
+  if (empty($entity->field_slide_start_date) && empty($entity->field_slide_end_date)) {
+    $output['always'] = array('#markup' => t('Always shown.'));
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function signage_signs_preprocess_page(&$variables) {
+  if (!empty($variables['node']) && $variables['node']->type == 'signage_sign' && user_is_anonymous()) {
+
+    // Create a reloadValue setting that will be passed to Drupal.settings.
+    $settings = array('reloadValue' => $variables['node']->field_sign_reload[LANGUAGE_NONE][0]['value']);
+
+    // Add the Drupal.setting to the page.
+    $variables['page']['content']['system_main']['content']['#attached']['js'][] = array(
+      'data' => array('signageSign' => $settings),
+      'type' => 'setting',
+    );
+
+    // Load the reload script.
+    $variables['page']['content']['system_main']['content']['#attached']['js'][] = drupal_get_path('module', 'signage_signs') . '/js/reload.js';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Alters the Signage Sign content type edit form.
+ */
+function signage_signs_form_signage_sign_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['title']['#title'] = t('Administrative Title');
+  $form['title']['#description'] = t('The title of the sign used in the administrative interface.');
+}

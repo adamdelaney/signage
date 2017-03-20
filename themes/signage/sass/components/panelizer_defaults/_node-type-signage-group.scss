@@ -1,0 +1,73 @@
+.node-type-signage-group {
+  .panel-separator {
+    padding: 1rem 0;
+  }
+
+  // Group field.
+  .field-name-group-group {
+    .field-label {
+      display: none;
+    }
+    .field-item {
+      @extend .alert;
+      @extend .alert-info;
+    }
+  }
+
+  // Create content.
+  .pane-og-extras-node-links {
+    .item-list {
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          margin: 0;
+          @include rem(margin-bottom, 10px);
+          list-style: none;
+        }
+      }
+
+      a {
+        @extend .btn;
+        @extend .btn-primary;
+        display: block;
+        text-align: left;
+
+        &:before {
+          @include icon($fa-var-plus);
+          @include rem(margin-right, 10px);
+        }
+      }
+    }
+  }
+
+  // OG node listings.
+  .group-list {
+
+    .views-row {
+      @include clearfix;
+      @include display-flex;
+      @include justify-content(space-between);
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid $color-darkgrey;
+    }
+
+    h3 {
+      margin: 0;
+      @include rem(font-size, $body-font-size);
+      @extend %fontreg;
+    }
+
+    .views-field-title {
+      @include flex(200px 1 1);
+    }
+
+    .views-field-edit-node,
+    .views-field-delete-node {
+      @include flex(40px 0 0);
+      margin-left: 5px;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+name = signage
+description = Theme for Drupal Signage.
+core = 7.x
+engine = phptemplate
+screenshot = signage_screenshot.png
+
+; ========================================
+; Stylesheets
+; ========================================
+stylesheets[all][] = stylesheets/signage.normalize.css
+stylesheets[all][] = stylesheets/signage.styles.css
+
+; ========================================
+; Plugins
+; ========================================
+plugins[panels][layouts] = layouts
+
+; ========================================
+; Scripts
+; ========================================
+scripts[] = js/modernizr-2.5.2.min.js
+scripts[] = js/preview-sign.js
+
+; ========================================
+; Regions
+; ========================================
+regions[page_top]       = Page top
+regions[header]         = Header
+regions[content]        = Content
+regions[footer]         = Footer
+regions[page_bottom]    = Page bottom

@@ -1,0 +1,232 @@
+<?php
+
+/**
+ * @file
+ * Install code for the Signage Signs feature.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function signage_signs_install() {
+  // Panelizer defaults.
+  $defaults = array(
+    'status' => 1,
+    'view modes' => array(
+      'page_manager' => array(
+        'status' => 1,
+        'default' => 1,
+        'choice' => 0,
+      ),
+      'default' => array(
+        'status' => 0,
+        'default' => 0,
+        'choice' => 0,
+      ),
+      'teaser' => array(
+        'status' => 0,
+        'default' => 0,
+        'choice' => 0,
+      ),
+    ),
+  );
+
+  variable_set('panelizer_defaults_node_signage_sign', $defaults);
+
+  // Setup default allowed layouts.
+  // Saves the panelizer_node:signage_sign_allowed_layouts variable.
+  $layouts = new panels_allowed_layouts();
+  $layouts->module_name = 'panelizer_node:signage_sign';
+  $layouts->allowed_layout_settings['flexible'] = 0;
+  $layouts->allowed_layout_settings['twocol_stacked'] = 0;
+  $layouts->allowed_layout_settings['twocol_bricks'] = 0;
+  $layouts->allowed_layout_settings['twocol'] = 0;
+  $layouts->allowed_layout_settings['threecol_33_34_33_stacked'] = 0;
+  $layouts->allowed_layout_settings['threecol_33_34_33'] = 0;
+  $layouts->allowed_layout_settings['threecol_25_50_25_stacked'] = 0;
+  $layouts->allowed_layout_settings['threecol_25_50_25'] = 0;
+  $layouts->allowed_layout_settings['onecol'] = 0;
+  $layouts->allowed_layout_settings['aloha'] = 0;
+  $layouts->save();
+
+  variable_set('panelizer_node:signage_sign_allowed_layouts_default', 0);
+
+  $allowed_types = array(
+    'entity_field-node:field_sign_display_title' => TRUE,
+    'group_logo-group_logo' => TRUE,
+    'signage_marquee-signage_marquee' => TRUE,
+    'date_time-date_time' => TRUE,
+    'twitter-twitter' => TRUE,
+    'video-video' => TRUE,
+    'custom-custom' => TRUE,
+    'views_panes-news_panes-feed_list' => TRUE,
+    'views_panes-slides_slideshows-primary_slideshow' => TRUE,
+    'views_panes-slides_slideshows-secondary_slideshow' => TRUE,
+    'views_panes-slides_slideshows-tertiary_slideshow' => TRUE,
+  );
+
+  variable_set('panelizer_node:signage_sign_allowed_types', $allowed_types);
+
+  variable_set('panelizer_node:signage_sign_allowed_types_default', 0);
+
+  $type_defaults = array(
+    'entity_field' => 0,
+    'token' => 0,
+    'entity_form_field' => 0,
+    'entity_field_extra' => 0,
+    'custom' => 0,
+    'block' => 0,
+    'entity_view' => 0,
+    'views' => 0,
+    'views_panes' => 0,
+    'other' => 0,
+  );
+
+  variable_set('panelizer_node:signage_sign_default', $type_defaults);
+
+  // Add panelizer configuration.
+  $panelizer = new stdClass();
+  $panelizer->disabled = FALSE; /* Edit this to true to make a default panelizer disabled initially */
+  $panelizer->api_version = 1;
+  $panelizer->title = 'Default';
+  $panelizer->panelizer_type = 'node';
+  $panelizer->panelizer_key = 'signage_sign';
+  $panelizer->access = array();
+  $panelizer->view_mode = 'page_manager';
+  $panelizer->name = 'node:signage_sign:default';
+  $panelizer->css_id = '';
+  $panelizer->css_class = '';
+  $panelizer->css = '';
+  $panelizer->no_blocks = FALSE;
+  $panelizer->title_element = 'H2';
+  $panelizer->link_to_entity = TRUE;
+  $panelizer->extra = array();
+  $panelizer->pipeline = 'ipe';
+  $panelizer->contexts = array();
+  $panelizer->relationships = array();
+  $display = new panels_display();
+  $display->layout = 'alpha';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'center' => NULL,
+      'top-left' => NULL,
+      'top-right' => NULL,
+      'middle' => NULL,
+      'bottom' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '%node:title';
+  $display->uuid = '52b5dbe9-3f8e-4803-9f72-92f169761cec';
+  $display->storage_type = 'panelizer_default';
+  $display->storage_id = 'node:signage_sign:default';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-75385595-c708-4796-84c6-77d56b78e24d';
+  $pane->panel = 'middle';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'slides_slideshows-primary_slideshow';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '75385595-c708-4796-84c6-77d56b78e24d';
+  $display->content['new-75385595-c708-4796-84c6-77d56b78e24d'] = $pane;
+  $display->panels['middle'][0] = 'new-75385595-c708-4796-84c6-77d56b78e24d';
+  $pane = new stdClass();
+  $pane->pid = 'new-b84dd407-8a04-471f-a1ab-2d01a89475f1';
+  $pane->panel = 'top-left';
+  $pane->type = 'group_logo';
+  $pane->subtype = 'group_logo';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'b84dd407-8a04-471f-a1ab-2d01a89475f1';
+  $display->content['new-b84dd407-8a04-471f-a1ab-2d01a89475f1'] = $pane;
+  $display->panels['top-left'][0] = 'new-b84dd407-8a04-471f-a1ab-2d01a89475f1';
+  $pane = new stdClass();
+  $pane->pid = 'new-17a0dd77-e4fd-45cb-8a65-cea082d44378';
+  $pane->panel = 'top-left';
+  $pane->type = 'entity_field';
+  $pane->subtype = 'node:field_sign_display_title';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'label' => 'hidden',
+    'formatter' => 'text_default',
+    'delta_limit' => 0,
+    'delta_offset' => '0',
+    'delta_reversed' => FALSE,
+    'formatter_settings' => array(),
+    'context' => 'panelizer',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '17a0dd77-e4fd-45cb-8a65-cea082d44378';
+  $display->content['new-17a0dd77-e4fd-45cb-8a65-cea082d44378'] = $pane;
+  $display->panels['top-left'][1] = 'new-17a0dd77-e4fd-45cb-8a65-cea082d44378';
+  $pane = new stdClass();
+  $pane->pid = 'new-b8e22b6d-88be-4dfb-8992-64e2a40e7fc7';
+  $pane->panel = 'top-right';
+  $pane->type = 'date_time';
+  $pane->subtype = 'date_time';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'b8e22b6d-88be-4dfb-8992-64e2a40e7fc7';
+  $display->content['new-b8e22b6d-88be-4dfb-8992-64e2a40e7fc7'] = $pane;
+  $display->panels['top-right'][0] = 'new-b8e22b6d-88be-4dfb-8992-64e2a40e7fc7';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
+  $panelizer->display = $display;
+
+  ctools_include('export');
+  ctools_export_crud_save('panelizer_defaults', $panelizer);
+}
