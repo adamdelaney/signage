@@ -2,4 +2,3 @@ name = Signage Marquee
 description = RSS ticker panes
 core = 7.x
 package = Signage
-version = 7.x-1.0

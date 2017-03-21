@@ -2,7 +2,6 @@ name = Signage Signs
 description = Provides sign configuration and defaults
 core = 7.x
 package = Signage
-version = 7.x-1.0
 project = signage_signs
 dependencies[] = ctools
 dependencies[] = entityreference

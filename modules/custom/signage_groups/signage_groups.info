@@ -2,7 +2,6 @@ name = Signage Groups
 description = Provides grouping structure for signage
 core = 7.x
 package = Signage
-version = 7.x-1.0
 project = signage_groups
 dependencies[] = ctools
 dependencies[] = features
