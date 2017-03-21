@@ -1,0 +1,13 @@
+core: 7.x
+api: 2
+
+# The build script is building the profile locally and not downloading it again.
+# @see --contrib-destination option in .travis.yml
+#
+# Drush make is supposed to find the signage.make.yml file automatically but
+# recursion doesn't seem to work when building local files. We could
+# specify the profile here but there is also an issue with relative URL's.
+# https://github.com/drush-ops/drush/issues/1856
+includes:
+  - drupal-org-core.make.yml
+  - signage.make.yml

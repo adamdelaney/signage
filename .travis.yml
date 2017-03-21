@@ -1,0 +1,38 @@
+sudo: false
+language: php
+php:
+- '5.6'
+cache:
+  directories:
+  - $HOME/.composer/cache
+services:
+- mysql
+matrix:
+  fast_finish: true
+before_install:
+- phpenv config-rm xdebug.ini
+- composer self-update
+- echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+install:
+- export PATH="$HOME/.composer/vendor/bin:$PATH"
+- cd ../.. && mkdir profiles && mv ITS-UofIowa/signage profiles/signage
+- composer global require drush/drush
+- composer global require drupal/coder
+- phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+- phpcs --config-set ignore_warnings_on_exit 1
+script:
+- phpcs --standard=Drupal,DrupalPractice . --ignore='libraries,modules,themes'
+- drush make --yes --force-gitinfofile --concurrency=6 --contrib-destination=profiles/signage profiles/signage/build-signage.make.yml .
+- drush --yes site-install signage --db-url=mysql://root@localhost/drupal --site-name=TravisCI
+before_deploy:
+- echo -e "\n; Automatically added by Travis packaging script\nversion = $TRAVIS_TAG" >> profiles/signage/signage.info
+- tar -czf build-signage.tar.gz -C profiles signage
+deploy:
+  provider: releases
+  api_key:
+    secure: P0KQKe5z+qy63ebg2J7QwZLe+OZ2P7aSDPhrBCORKXuf1lrT7z5ukIJPAfFF95JbjCssPi8Bmc7ydA6kJxuE30t24v+0MV0bKskkGXoViYZCUcorE/yVHeW2Q6+32+6GMBakkbc4TolWPKA6lXxQ7OUO9GeE1WjvgatEQFSKIq2MviN2Ap3M4CtvHjBuoztvWioG0B9ealSR1j1eVBDBJ7cI0ZoKHokHtk1AaQXhr3Y4h2f8t3M4P19H8c4IuXgXpE3fIijcL7oLTxFvDANXuzH/PfTy+OdjlHnTXR0+lHS3FCAvKkK1vNM40ABAelzqxGGOuxQT2jAd0v9gl1BR8YEHalQKOLZIcZoBAYEvf8ZSCL4nnRPk2GzLDV8qzpXc213tRsIW19rUpBj8wm82s44m8mthzuJc/WkJVSUNVqmp9L/JjK7WJNybhle+RNK/dM6ykUW7rkzq5iC8lRiwPW17/uj5PAvZonQsyBApEkVC6bh1zKs/pQmRx+r77zh83GVA/ruv7sUSIKuEEXNKgEk24AfgyB7n9kMQxBjf1BUkWnnTRFEj2EBEHaWLBpOpaCA4niCd1oxNB2e6SHWlSxwA7gxNbxNv/GLuf5+CFr/ys3ivABRmCtE6QxLjKAsPX/UenHmgd7LDM5cogcQzXHpzkC+YWEil1CBNFUfqa6g=
+  file: build-signage.tar.gz
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true
