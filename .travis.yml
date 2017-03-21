@@ -21,7 +21,7 @@ install:
 - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
 - phpcs --config-set ignore_warnings_on_exit 1
 script:
-- phpcs --standard=Drupal,DrupalPractice . --extensions='php,module,inc,install,test,profile,theme,info' --ignore='css,contrib,omega,libraries,*.features.*,*default.inc,*.strongarm.inc,*.panelizer.inc,*.file_default_displays.inc,*.file_type.inc,*.field_group.inc,*.rules.inc.*.flexslider_default_preset.inc''
+- phpcs --standard=Drupal,DrupalPractice . --extensions='php,module,inc,install,test,profile,theme,info' --ignore='css,contrib,omega,libraries,*.features.*,*default.inc,*.strongarm.inc,*.panelizer.inc,*.file_default_displays.inc,*.file_type.inc,*.field_group.inc,*.rules.inc.*.flexslider_default_preset.inc'
 - drush make --yes --force-gitinfofile --concurrency=6 --contrib-destination=profiles/signage profiles/signage/build-signage.make.yml .
 - drush --yes site-install signage --db-url=mysql://root@localhost/drupal --site-name=TravisCI
 before_deploy:
