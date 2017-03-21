@@ -2,7 +2,6 @@ name = Signage Pages
 description = Custom page manager pages
 core = 7.x
 package = Signage
-version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = og
 dependencies[] = page_manager

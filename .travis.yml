@@ -25,7 +25,7 @@ script:
 - drush make --yes --force-gitinfofile --concurrency=6 --contrib-destination=profiles/signage profiles/signage/build-signage.make.yml .
 - drush --yes site-install signage --db-url=mysql://root@localhost/drupal --site-name=TravisCI
 before_deploy:
-- echo -e "\n; Automatically added by Travis packaging script\nversion = $TRAVIS_TAG" >> profiles/signage/signage.info
+- find . -path ./modules/contrib -prune -o -name '*.info' -exec sh -c 'echo -e "\n; Automatically added by Travis packaging script\nversion = $TRAVIS_TAG" >> "$1"' -- {} \;
 - tar -czf build-signage.tar.gz -C profiles signage
 deploy:
   provider: releases

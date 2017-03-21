@@ -2,7 +2,6 @@ name = Signage News Panes
 description = Basic news pane list
 core = 7.x
 package = Signage
-version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = views
 dependencies[] = views_content
