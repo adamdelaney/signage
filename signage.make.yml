@@ -62,6 +62,9 @@ projects:
     patch:
       - "https://www.drupal.org/files/issues/media-browser_opens_twice-2534724-35.patch"
 
+  memcache:
+    version: '1.5'
+    
   node_clone:
     version: "1.0"
 
