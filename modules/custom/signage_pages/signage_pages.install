@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * signage_pages.pages_default.inc
+ * Install code for the Signage Pages feature.
  */
 
 /**
- * Implements hook_default_page_manager_pages().
+ * Implements hook_install().
  */
-function signage_pages_default_page_manager_pages() {
+function signage_pages_install() {
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -197,8 +197,6 @@ function signage_pages_default_page_manager_pages() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-  $pages['home'] = $page;
 
-  return $pages;
-
+  page_manager_page_save($page);
 }
