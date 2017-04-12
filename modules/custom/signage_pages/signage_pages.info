@@ -5,7 +5,6 @@ package = Signage
 dependencies[] = ctools
 dependencies[] = og
 dependencies[] = page_manager
-dependencies[] = signage_promotions
 dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_tree

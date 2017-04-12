@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Signage Promotions feature.
- */
-
-include_once 'signage_promotions.features.inc';
