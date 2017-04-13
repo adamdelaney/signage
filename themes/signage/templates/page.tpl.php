@@ -68,17 +68,13 @@
 ?>
 <header class="l-header" role="banner">
   <div class="container">
-    <a class="uiowa-logo" href="http://www.uiowa.edu/">
-      <img class="uiowaimg" src="/<?php print path_to_theme(); ?>/images/uiowa.svg" alt="The University of Iowa" />
-    </a>
-
     <h1 class="site-name">
       <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
         <?php print $site_name; ?>
       </a>
     </h1>
     <?php if (!user_is_logged_in()):?>
-      <a class="login" href="<?php print $base_path; ?>cas">Login</a>
+      <a class="login" href="<?php print $base_path; ?>user/login">Login</a>
     <?php endif; ?>
   </div>
 </header>
