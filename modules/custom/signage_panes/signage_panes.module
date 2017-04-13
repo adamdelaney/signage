@@ -28,6 +28,24 @@ function signage_panes_permission() {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function signage_panes_menu() {
+  $items = array();
+
+  // Video Pane Settings.
+  $items['admin/config/media/video-embed-pane'] = array(
+    'title' => 'Video Embed Pane Settings',
+    'description' => 'Configure settings for the video embed pane.',
+    'access arguments' => array('administer video embed panes'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('signage_panes_video_admin_settings_form'),
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_preprocess_panels_pane().
  */
 function signage_panes_preprocess_panels_pane(&$variables) {
