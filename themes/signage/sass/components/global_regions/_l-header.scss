@@ -7,11 +7,6 @@
     position: relative;
   }
 
-  .uiowa-logo {
-    display: block;
-    max-width: 270px;
-  }
-
   .site-name {
     margin: 0;
     @include rem(font-size,50px);

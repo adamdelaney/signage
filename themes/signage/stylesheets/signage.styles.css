@@ -2014,9 +2014,6 @@
 .fa-fonticons:before {
   content: "\f280"; }
 
-/* Coralville */
-/* Cambus */
-/* Iowa City */
 .panels-ipe-dragbar-admin-title {
   position: absolute;
   width: 1px;
@@ -3407,11 +3404,7 @@ html[xmlns] .slides {
 
   .col-lg-offset-12 {
     margin-left: 100%; } }
-.label, .itc-availability .total,
-.itc-availability-numbers .total, .itc-availability .high-availability,
-.itc-availability-numbers .high-availability, .itc-availability .moderate-availability,
-.itc-availability-numbers .moderate-availability, .itc-availability .low-availability,
-.itc-availability-numbers .low-availability {
+.label {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
@@ -3422,29 +3415,9 @@ html[xmlns] .slides {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em; }
-  .label:empty, .itc-availability .total:empty,
-  .itc-availability-numbers .total:empty, .itc-availability .high-availability:empty,
-  .itc-availability-numbers .high-availability:empty, .itc-availability .moderate-availability:empty,
-  .itc-availability-numbers .moderate-availability:empty, .itc-availability .low-availability:empty,
-  .itc-availability-numbers .low-availability:empty {
+  .label:empty {
     display: none; }
-  .btn .label, .node-type-signage-group .pane-og-extras-node-links .item-list a .label, .btn .itc-availability .total, .itc-availability .btn .total, .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability .total, .itc-availability .node-type-signage-group .pane-og-extras-node-links .item-list a .total,
-  .btn .itc-availability-numbers .total,
-  .itc-availability-numbers .btn .total,
-  .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability-numbers .total,
-  .itc-availability-numbers .node-type-signage-group .pane-og-extras-node-links .item-list a .total, .btn .itc-availability .high-availability, .itc-availability .btn .high-availability, .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability .high-availability, .itc-availability .node-type-signage-group .pane-og-extras-node-links .item-list a .high-availability,
-  .btn .itc-availability-numbers .high-availability,
-  .itc-availability-numbers .btn .high-availability,
-  .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability-numbers .high-availability,
-  .itc-availability-numbers .node-type-signage-group .pane-og-extras-node-links .item-list a .high-availability, .btn .itc-availability .moderate-availability, .itc-availability .btn .moderate-availability, .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability .moderate-availability, .itc-availability .node-type-signage-group .pane-og-extras-node-links .item-list a .moderate-availability,
-  .btn .itc-availability-numbers .moderate-availability,
-  .itc-availability-numbers .btn .moderate-availability,
-  .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability-numbers .moderate-availability,
-  .itc-availability-numbers .node-type-signage-group .pane-og-extras-node-links .item-list a .moderate-availability, .btn .itc-availability .low-availability, .itc-availability .btn .low-availability, .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability .low-availability, .itc-availability .node-type-signage-group .pane-og-extras-node-links .item-list a .low-availability,
-  .btn .itc-availability-numbers .low-availability,
-  .itc-availability-numbers .btn .low-availability,
-  .node-type-signage-group .pane-og-extras-node-links .item-list a .itc-availability-numbers .low-availability,
-  .itc-availability-numbers .node-type-signage-group .pane-og-extras-node-links .item-list a .low-availability {
+  .btn .label, .node-type-signage-group .pane-og-extras-node-links .item-list a .label {
     position: relative;
     top: -1px; }
 
@@ -3463,12 +3436,9 @@ a.bs-label:hover, a.bs-label:focus {
   .label-primary[href]:hover, .label-primary[href]:focus {
     background-color: #286090; }
 
-.label-success, .itc-availability .high-availability,
-.itc-availability-numbers .high-availability {
+.label-success {
   background-color: #4d834c; }
-  .label-success[href]:hover, .itc-availability [href].high-availability:hover,
-  .itc-availability-numbers [href].high-availability:hover, .label-success[href]:focus, .itc-availability [href].high-availability:focus,
-  .itc-availability-numbers [href].high-availability:focus {
+  .label-success[href]:hover, .label-success[href]:focus {
     background-color: #3a6339; }
 
 .label-info {
@@ -3476,20 +3446,14 @@ a.bs-label:hover, a.bs-label:focus {
   .label-info[href]:hover, .label-info[href]:focus {
     background-color: #236079; }
 
-.label-warning, .itc-availability .moderate-availability,
-.itc-availability-numbers .moderate-availability {
+.label-warning {
   background-color: #a86820; }
-  .label-warning[href]:hover, .itc-availability [href].moderate-availability:hover,
-  .itc-availability-numbers [href].moderate-availability:hover, .label-warning[href]:focus, .itc-availability [href].moderate-availability:focus,
-  .itc-availability-numbers [href].moderate-availability:focus {
+  .label-warning[href]:hover, .label-warning[href]:focus {
     background-color: #7d4d18; }
 
-.label-danger, .itc-availability .low-availability,
-.itc-availability-numbers .low-availability {
+.label-danger {
   background-color: #d93d33; }
-  .label-danger[href]:hover, .itc-availability [href].low-availability:hover,
-  .itc-availability-numbers [href].low-availability:hover, .label-danger[href]:focus, .itc-availability [href].low-availability:focus,
-  .itc-availability-numbers [href].low-availability:focus {
+  .label-danger[href]:hover, .label-danger[href]:focus {
     background-color: #b72b22; }
 
 ul.marquee-shown {
@@ -3576,16 +3540,6 @@ table {
   table tr.even {
     background: transparent; }
 
-.pane-itcavailabilitygrid table {
-  width: 100%; }
-  .pane-itcavailabilitygrid table th {
-    border-color: #333; }
-  .pane-itcavailabilitygrid table tr {
-    border-bottom: 1px solid #333; }
-  .pane-itcavailabilitygrid table tr.odd,
-  .pane-itcavailabilitygrid table tr.even {
-    background: transparent; }
-
 ul.tabs {
   margin: 0;
   padding: 0; }
@@ -3604,15 +3558,14 @@ ul.tabs {
     border-radius: 3px 3px 0px 0px;
     margin: 0; }
 
-html, body, h6, .pane-bongo-predictions .bongo-predictions td, .node-type-signage-group .group-list h3 {
+html, body, h6, .node-type-signage-group .group-list h3 {
   font-family: "ProximaNovaRegular", Arial, "Helvetica Neue", Helvetica, sans-serif; }
 
-.pane-itcavailabilitygrid table th, .pane-localist-pane .lwn, .pane-localist-pane .lwn .lwn0, .l-header .login, .pane-node-field-sign-display-title h1, .pane-page-title h1 {
+.l-header .login, .pane-node-field-sign-display-title h1, .pane-page-title h1 {
   font-family: "ProximaNovaSemibold", Arial, "Helvetica Neue", Helvetica, sans-serif; }
 
-h1, h2, h3, h4, h5, h6, .pane-bongo-predictions .bongo-predictions th, .pane-date-time, .view-promotional-image-slideshow .promo-headline, .pane-signage-marquee .marquee-title,
-.pane-signage-marquee .item-title, .pane-signage-weather #current-weather .right-now, .pane-signage-weather #two-day-forecast .day-title, .pane-signage-weather #three-day-forecast .day-title, .pane-signage-weather .temp-min,
-.pane-signage-weather .temp-max, .pane-signage-weather #current-weather #temp, .pane-signage-weather #two-day-forecast .temp {
+h1, h2, h3, h4, h5, h6, .pane-date-time, .pane-signage-marquee .marquee-title,
+.pane-signage-marquee .item-title {
   font-family: "ProximaNovaRgBold", Arial, "Helvetica Neue", Helvetica, sans-serif; }
 
 button,
@@ -3655,11 +3608,6 @@ a {
   color: #ffc000;
   text-decoration: none; }
 
-.pane-localist-pane .lwn, .pane-localist-pane .lwn .lwn0 {
-  font-size: 25px;
-  font-size: 2.5rem;
-  line-height: 1.3; }
-
 .l-guide {
   padding: 1em 0 0;
   border-bottom: 1px solid #444444; }
@@ -3677,9 +3625,6 @@ a {
   padding: 1em 0; }
   .l-header .container {
     position: relative; }
-  .l-header .uiowa-logo {
-    display: block;
-    max-width: 270px; }
   .l-header .site-name {
     margin: 0;
     font-size: 50px;
@@ -3772,42 +3717,6 @@ a {
 .style-vh-100 {
   max-height: 100vh; }
 
-.pane-bongo-predictions-multiple {
-  overflow: hidden;
-  *zoom: 1; }
-  .pane-bongo-predictions-multiple .stop-title {
-    margin: 0;
-    font-size: 22px;
-    font-size: 2.2rem; }
-
-.pane-bongo-predictions .bongo-predictions {
-  width: 100%; }
-  .pane-bongo-predictions .bongo-predictions th,
-  .pane-bongo-predictions .bongo-predictions td {
-    padding: 10px;
-    padding: 1rem;
-    border: none; }
-  .pane-bongo-predictions .bongo-predictions th {
-    color: #eeeeee; }
-  .pane-bongo-predictions .bongo-predictions tr {
-    color: #eeeeee; }
-    .pane-bongo-predictions .bongo-predictions tr:last-child {
-      border-bottom: none; }
-  .pane-bongo-predictions .bongo-predictions .cambus {
-    background-color: #ffc000 !important;
-    color: black;
-    border: 1px solid #e6ad00; }
-  .pane-bongo-predictions .bongo-predictions .coralville {
-    background-color: #006699 !important;
-    color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    border: 1px solid #005580; }
-  .pane-bongo-predictions .bongo-predictions .iowa-city {
-    background-color: #990000 !important;
-    color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    border: 1px solid maroon; }
-
 .pane-date-time {
   font-size: 30px;
   font-size: 3rem; }
@@ -3827,68 +3736,6 @@ a {
   .pane-date-time .pane-content > span:first-child {
     margin-right: 0.3em; }
 
-.pane-ems-events table {
-  font-weight: bold; }
-.pane-ems-events th {
-  border: none; }
-.pane-ems-events tr.odd, .pane-ems-events tr.even {
-  border-bottom-width: 2px; }
-.pane-ems-events .time {
-  width: 20%; }
-.pane-ems-events .room {
-  width: 30%; }
-.pane-ems-events.stylize-table tr.odd, .pane-ems-events.stylize-table tr.even {
-  color: #000;
-  background-color: #ffc000;
-  border-bottom-color: #020202; }
-
-.itc-availability,
-.itc-availability-numbers {
-  font-size: 22px;
-  font-size: 2.2rem;
-  text-align: center;
-  color: #888888; }
-  .itc-availability .availability,
-  .itc-availability .total,
-  .itc-availability-numbers .availability,
-  .itc-availability-numbers .total {
-    margin: 0 5px; }
-  .itc-availability .total,
-  .itc-availability-numbers .total {
-    background: #333; }
-
-.pane-itcavailability .itc-availability-numbers {
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
-  margin-right: 1rem; }
-.pane-itcavailability .availability-text {
-  vertical-align: bottom; }
-
-.pane-itcavailabilitygrid table th {
-  white-space: nowrap; }
-
-.pane-localist-pane ul {
-  margin: 0;
-  padding: 0; }
-  .pane-localist-pane ul li {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 2em; }
-.pane-localist-pane span {
-  display: block; }
-.pane-localist-pane .lwn .lwn0 {
-  font-size: 18px;
-  font-size: 1.8rem; }
-.pane-localist-pane .lwl {
-  color: #888888; }
-  .pane-localist-pane .lwl a {
-    color: #888888; }
-  .pane-localist-pane .lwl .lwl0 {
-    display: none; }
-
 .pane-node-field-sign-display-title h1 {
   margin: 0;
   font-size: 55px;
@@ -3904,25 +3751,6 @@ a {
   line-height: 1;
   color: #fff;
   text-shadow: 0 0 1px white; }
-
-.view-promotional-image-slideshow .flexslider {
-  box-shadow: none; }
-.view-promotional-image-slideshow ul.slides {
-  width: 80% !important;
-  margin: 0 auto !important; }
-.view-promotional-image-slideshow .promo-headline {
-  position: absolute;
-  bottom: 5%;
-  width: 100%;
-  font-size: 48px;
-  font-size: 4.8rem;
-  text-shadow: 0 2px 3px black; }
-.view-promotional-image-slideshow .promo-body {
-  margin-top: 1%;
-  color: #cccccc;
-  font-size: 17px;
-  font-size: 1.7rem;
-  text-align: center; }
 
 .pane-signage-marquee {
   font-size: 30px;
@@ -3941,92 +3769,12 @@ a {
   .pane-signage-marquee .item-date {
     color: #888888; }
 
-.pane-signage-weather #current-weather .right-now, .pane-signage-weather #two-day-forecast .day-title, .pane-signage-weather #three-day-forecast .day-title {
-  color: #ffc000;
-  text-transform: uppercase;
-  margin-bottom: 0.5em;
-  font-size: 30px;
-  font-size: 3rem; }
-
-.pane-signage-weather {
-  text-align: center; }
-  .pane-signage-weather h2.pane-title {
-    text-align: left; }
-  .pane-signage-weather img {
-    height: auto !important; }
-  .pane-signage-weather .temp-min,
-  .pane-signage-weather .temp-max {
-    display: inline-block;
-    vertical-align: middle;
-    *vertical-align: auto;
-    *zoom: 1;
-    *display: inline;
-    font-size: 22px;
-    font-size: 2.2rem; }
-  .pane-signage-weather .temp-min {
-    color: #888888; }
-  .pane-signage-weather #current-weather img {
-    max-width: 120px;
-    max-height: 120px; }
-  .pane-signage-weather #current-weather #temp {
-    font-size: 33px;
-    font-size: 3.3rem; }
-  .pane-signage-weather #two-day-forecast {
-    margin-top: 1em;
-    display: -webkit-flex;
-    display: flex; }
-    .pane-signage-weather #two-day-forecast > div {
-      padding: 0 1em;
-      border-right: 1px dashed #666666;
-      -webkit-flex: 100px 1 1;
-      flex: 100px 1 1; }
-      .pane-signage-weather #two-day-forecast > div:last-child {
-        border: none; }
-    .pane-signage-weather #two-day-forecast .temp {
-      display: inline-block;
-      vertical-align: middle;
-      *vertical-align: auto;
-      *zoom: 1;
-      *display: inline;
-      font-size: 33px;
-      font-size: 3.3rem; }
-    .pane-signage-weather #two-day-forecast .temp-min,
-    .pane-signage-weather #two-day-forecast .temp-max {
-      font-size: 33px;
-      font-size: 3.3rem; }
-    .pane-signage-weather #two-day-forecast .day-title {
-      font-size: 30px;
-      font-size: 3rem; }
-    .pane-signage-weather #two-day-forecast img {
-      max-width: 100px;
-      max-height: 100px; }
-  .pane-signage-weather #three-day-forecast {
-    margin-top: 1em;
-    display: -webkit-flex;
-    display: flex; }
-    .pane-signage-weather #three-day-forecast > div {
-      padding: 0 1em;
-      border-right: 1px dashed #666666;
-      -webkit-flex: 100px 1 1;
-      flex: 100px 1 1; }
-      .pane-signage-weather #three-day-forecast > div:last-child {
-        border: none; }
-    .pane-signage-weather #three-day-forecast .day-title {
-      font-size: 22px;
-      font-size: 2.2rem; }
-    .pane-signage-weather #three-day-forecast img {
-      max-width: 75px;
-      max-height: 75px; }
-
 .flexslider {
   margin-bottom: 0; }
 
 .pane-twitter iframe,
 .pane-twitter .timeline {
   max-width: 100% !important; }
-
-.pane-uinameplate img {
-  width: 300px; }
 
 .node-type-signage-group .panel-separator {
   padding: 1rem 0; }
