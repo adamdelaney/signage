@@ -22,10 +22,10 @@ install:
 - phpcs --config-set ignore_warnings_on_exit 1
 script:
 - phpcs --standard=Drupal,DrupalPractice . --ignore='libraries,modules,themes'
+- find . -name '*.info' -exec sh -c 'echo "\n; Automatically added by Travis packaging script\nversion = $TRAVIS_TAG" >> "$1"' -- {} \;
 - drush make --yes --force-gitinfofile --concurrency=6 --contrib-destination=profiles/signage profiles/signage/build-signage.make.yml .
 - drush --yes site-install signage --db-url=mysql://root@localhost/drupal --site-name=TravisCI
 before_deploy:
-- find . -path ./modules/contrib -prune -o -name '*.info' -exec sh -c 'echo "\n; Automatically added by Travis packaging script\nversion = $TRAVIS_TAG" >> "$1"' -- {} \;
 - tar -czf build-signage.tar.gz -C profiles signage
 deploy:
   provider: releases
