@@ -39,11 +39,9 @@ function signage_common_update_7101() {
 }
 
 /**
- * Ensure that the promotional image feature gets enabled.
+ * Deprecated update hook.
  */
 function signage_common_update_7102() {
-
-  module_enable(array('signage_promotions'));
 }
 
 /**
