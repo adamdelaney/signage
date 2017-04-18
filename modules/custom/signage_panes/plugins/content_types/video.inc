@@ -173,7 +173,7 @@ function signage_panes_video_render($subtype, $conf, $panel_args, $context = NUL
       if ($conf['video_playlist']) {
         $url = '//www.youtube.com/embed?listType=playlist&list=' . $vid . '&';
       } else {
-        $url = '//www.youtube.com/v/' . $vid . '?';
+        $url = '//www.youtube.com/embed/' . $vid . '?';
       }
 
       $params = '';
