@@ -312,3 +312,19 @@ function signage_install() {
   // Update the menu router information.
   menu_rebuild();
 }
+
+/**
+ * Add missing IPE permission to roles.
+ */
+function signage_update_7200() {
+
+  $permissions = array(
+    'use panels in place editing',
+  );
+
+  $editor_role = user_role_load_by_name('editor');
+  $webmaster_role = user_role_load_by_name('webmaster');
+
+  user_role_grant_permissions($editor_role->rid, $permissions);
+  user_role_grant_permissions($webmaster_role->rid, $permissions);
+}
