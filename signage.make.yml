@@ -56,9 +56,7 @@ projects:
     version: "2.3"
 
   media:
-    version: "2.0-beta1"
-    patch:
-      - "https://www.drupal.org/files/issues/media-browser_opens_twice-2534724-35.patch"
+    version: "2.0"
 
   memcache:
     version: '1.5'
