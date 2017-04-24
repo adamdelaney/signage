@@ -87,7 +87,7 @@ projects:
       - "https://www.drupal.org/files/issues/panelizer-save-as-custom-2470996-3.patch"
 
   panels:
-    version: "3.7"
+    version: "3.9"
 
   pathauto:
     version: "1.3"
