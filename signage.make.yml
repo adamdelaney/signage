@@ -12,7 +12,7 @@ projects:
     version: "2.5"
 
   ctools:
-    version: "1.9"
+    version: "1.12"
 
   date:
     version: "2.9"
