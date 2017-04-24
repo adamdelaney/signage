@@ -18,7 +18,7 @@ projects:
     version: "2.9"
 
   diff:
-    version: "3.2"
+    version: "3.3"
 
   entity:
     version: "1.7"
