@@ -48,7 +48,7 @@ projects:
     version: '1.0'
 
   inline_entity_form:
-    version: '1.6'
+    version: '1.8'
     patch:
       - "https://www.drupal.org/files/issues/1872316-ief-bundle-selection-erv-22_0.patch"
 
