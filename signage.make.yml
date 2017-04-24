@@ -39,7 +39,7 @@ projects:
     version: "1.5"
 
   file_entity:
-    version: '2.0-beta2'
+    version: '2.0-beta3'
 
   flexslider:
     version: '2.0-rc2'
