@@ -111,7 +111,7 @@ projects:
     version: "3.16"
 
   views_bulk_operations:
-    version: "3.3"
+    version: "3.4"
 
   views_tree:
     version: "2.0"
