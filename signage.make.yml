@@ -42,9 +42,7 @@ projects:
     version: '2.0-beta2'
 
   flexslider:
-    version: '2.0-rc1'
-    patch:
-      - "https://www.drupal.org/files/issues/flexslider_include_object_in_callback-1580902-40.patch"
+    version: '2.0-rc2'
 
   ief_dialog:
     version: '1.0'
