@@ -266,7 +266,7 @@ function signage_install() {
           'view image file' => 0,
           'update any signage_sign content' => 1,
           'create signage_slide content' => 1,
-          'update  any signage_slide content' => 1,
+          'update any signage_slide content' => 1,
           'delete any signage_slide content' => 1,
           'unsubscribe' => 0,
         );
@@ -283,7 +283,7 @@ function signage_install() {
           'update any signage_sign content' => 1,
           'delete any signage_sign content' => 1,
           'create signage_slide content' => 1,
-          'update  any signage_slide content' => 1,
+          'update any signage_slide content' => 1,
           'delete any signage_slide content' => 1,
           'approve and deny subscription' => 0,
           'add user' => 0,
@@ -329,4 +329,28 @@ function signage_update_7200() {
 
   user_role_grant_permissions($editor_role->rid, $permissions);
   user_role_grant_permissions($webmaster_role->rid, $permissions);
+}
+
+/**
+ * Update group members and admin members to be able to edit slides.
+ */
+function signage_update_7201() {
+  foreach (og_roles('node', 'signage_group', 0) as $rid => $name) {
+
+    $perms = array();
+
+    switch ($name) {
+
+      case 'member':
+      case 'administrator member';
+        $perms = array(
+          'update any signage_slide content' => 1,
+        );
+        og_role_change_permissions($rid, $perms);
+        break;
+
+      default:
+        break;
+    }
+  }
 }
