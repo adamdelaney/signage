@@ -27,7 +27,7 @@ projects:
     version: "1.2"
 
   entityreference_prepopulate:
-    version: "1.6"
+    version: "1.7"
 
   escape_admin:
     version: "1.2"
