@@ -76,7 +76,7 @@ projects:
     version: "1.2"
 
   og_subgroups:
-    version: "2.0-beta5"
+    version: "2.0"
 
   override_node_options:
     version: "1.13"
