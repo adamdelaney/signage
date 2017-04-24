@@ -21,7 +21,7 @@ projects:
     version: "3.3"
 
   entity:
-    version: "1.7"
+    version: "1.8"
 
   entityreference:
     version: "1.1"
