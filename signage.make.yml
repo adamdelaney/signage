@@ -53,7 +53,7 @@ projects:
       - "https://www.drupal.org/files/issues/1872316-ief-bundle-selection-erv-22_0.patch"
 
   libraries:
-    version: "2.2"
+    version: "2.3"
 
   media:
     version: "2.0-beta1"
