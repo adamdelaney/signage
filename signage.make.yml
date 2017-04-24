@@ -15,7 +15,7 @@ projects:
     version: "1.12"
 
   date:
-    version: "2.9"
+    version: "2.10"
 
   diff:
     version: "3.3"
