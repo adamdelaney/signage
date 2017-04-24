@@ -96,10 +96,7 @@ projects:
     version: "1.0-rc3"
 
   references_dialog:
-    download:
-      url: http://git.drupal.org/project/references_dialog.git
-      branch: 7.x-1.x
-      commit: faf64b7b620746adafde56d2721155961e040df0
+    version: "1.0-beta2"
 
   strongarm:
     version: "2.0"
