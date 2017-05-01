@@ -124,4 +124,23 @@ function signage_signs_preprocess_page(&$variables) {
 function signage_signs_form_signage_sign_node_form_alter(&$form, &$form_state, $form_id) {
   $form['title']['#title'] = t('Administrative Title');
   $form['title']['#description'] = t('The title of the sign used in the administrative interface.');
+
+  // Only add this custom submit callback if it's a new node.
+  if (!isset($form_state['node']->nid) || isset($form_state['node']->is_new)) {
+    $form['actions']['submit']['#submit'][] = 'signage_signs_custom_panelizer_callback';
+  }
+}
+
+/**
+ * Save the panelizer configuration as custom.
+ *
+ * This is a work around for https://www.drupal.org/node/2845433. On save, we
+ * tell panelizer to save this as a custom display instead of using the default.
+ * This shouldn't be an issue, as we expect to be able to configure each sign
+ * independently anyways.
+ */
+function signage_signs_custom_panelizer_callback($form, &$form_state) {
+  $node = node_load($form_state['values']['nid']);
+  $node->panelizer['page_manager']->display_is_modified = TRUE;
+  node_save($node);
 }
