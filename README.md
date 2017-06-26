@@ -3,4 +3,4 @@
 Drupal-based digital signage distribution
 
 # drupal-org-core.make.yml
-Used for Travis CL integration.
+Used for Travis CI testing.
